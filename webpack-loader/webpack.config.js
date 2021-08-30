@@ -2,15 +2,8 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-
 const isProduction = process.env.NODE_ENV == 'production';
-
-
-const stylesHandler = MiniCssExtractPlugin.loader;
-
-
+const stylesHandler = 'style-loader';
 
 const config = {
     entry: './src/index.js',
@@ -21,8 +14,6 @@ const config = {
         new HtmlWebpackPlugin({
             template: 'index.html',
         }),
-
-        new MiniCssExtractPlugin(),
 
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -35,15 +26,22 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
             },
             {
-                test: /\.(js|jsx)$/i,
-                loader: 'remove-comments-loader',
+                test: /\.(txt)$/i,
+                use: [
+                    {
+                        loader: path.resolve('rules/transform-loader'),
+                    }, {
+                        loader: path.resolve('rules/replace-name-loader'),
+                        options: { qaName: 'Joseph' }
+                    }
+                ]
             }
             // Add your rules for custom modules here
             // Learn more about loaders from https://webpack.js.org/loaders/
@@ -54,10 +52,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        
-        config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
-        
+
+
     } else {
         config.mode = 'development';
     }
