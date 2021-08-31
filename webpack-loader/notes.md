@@ -1,4 +1,4 @@
-# Loader
+# Webpack Loader
 
 ## Why Loader?
 Webpack only understands Javascript and JSON file.
