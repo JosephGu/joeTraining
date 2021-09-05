@@ -27,7 +27,9 @@ const config = {
         alias: {
             strUtils$: path.resolve(__dirname, 'src/utils/stringUtils.js'),
             utils: path.resolve(__dirname, 'src/utils'),
-        }
+        },
+        // extensions:['.js','.ts']
+        // extensions:['.ts','.js']
     },
     module: {
         rules: [
