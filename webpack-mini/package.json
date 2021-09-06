@@ -1,0 +1,11 @@
+{
+  "name": "webpack-mini",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bundler.js",
+  "scripts": {
+    "start": "node bundler.js | js-beautify | highlight"
+  },
+  "author": "",
+  "license": "ISC"
+}
